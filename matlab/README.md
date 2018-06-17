@@ -1,5 +1,5 @@
 # MATLAB Hello World on Discovery
-This is a MATLAB `parfor` demo running on the NEU Discovery Cluster. This example benchmarks the `parfor` construct by repeatedly playing the card game of blackjack, also known as 21. We use `parfor` to play the card game multiple times in parallel, varying the number of MATLAB® workers, but always using the same number of players and hands. This example is based on the [Simple Benchmarking of PARFOR Using Blackjack](https://www.mathworks.com/help/distcomp/examples/simple-benchmarking-of-parfor-using-blackjack.html) from the MATLAB [Parallel Computing Toolbox Examples](https://www.mathworks.com/help/distcomp/examples.html)
+This is a MATLAB `parfor` demo running on the NEU Discovery Cluster. This example benchmarks the `parfor` construct by repeatedly playing the card game of blackjack, also known as 21. We use `parfor` to play the card game multiple times in parallel, varying the number of MATLAB® workers, but always using the same number of players and hands. This example is based on the [Simple Benchmarking of PARFOR Using Blackjack](https://www.mathworks.com/help/distcomp/examples/simple-benchmarking-of-parfor-using-blackjack.html) from the MATLAB [Parallel Computing Toolbox Examples](https://www.mathworks.com/help/distcomp/examples.html).
 
 ***NOTE*** -- At this time (July 2018) MATLAB can only be run in parallel on a single node, i.e. across the cores of that node. This is due to a misconfigured license for the `discovery_local_r2016a` configuration. Note also that MATLAB Parallel Computing Toolbox only runs across physical cores, *not* logical cores.
 
@@ -27,6 +27,8 @@ Before you begin: become familiar with high-performance computing at Northeaster
         * [Notepad++](https://notepad-plus-plus.org/) with the [NppFTP](https://sourceforge.net/projects/nppftp/) plug-in.
 
         Configure Putty, XMing, and Notepad++ FTP with profiles to easily connect to Discovery.
+        
+        TODO -- separate this out into its own page and provide instructions for using SSH keys.
 
 3) Getting Matlab to run on Discovery
 
@@ -51,11 +53,11 @@ Before you begin: become familiar with high-performance computing at Northeaster
 Create an interactive node for Matlab. 
 The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we cannot run Matlab on the *log-in nodes* (i.e. discovery2 and discovery4). So, we need to use SLURM  to create a job. The easiest way to do this is to create an [*interactive job*](https://www.northeastern.edu/rc/?page_id=18#intjobs). 
 
-1) Use Putty to SSH into a Discover login node.
+1) Use Putty to SSH into a Discovery login node.
 
 2) Use the SLURM `salloc` command to allocate one `ser-par-10g-4` compute node for exclusive use. 
 
-    Note: We could choose any of the (partitions on the discovery cluster)[https://www.northeastern.edu/rc/?page_id=14], but only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or [contact research computing](https://www.northeastern.edu/rc/?page_id=24). Alternatively, you can use the following command to start Matlab `$ matlab -softwareopengl`.
+    *NOTE* -- We could choose any of the [partitions on the discovery cluster](https://www.northeastern.edu/rc/?page_id=14), but only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or [contact research computing](https://www.northeastern.edu/rc/?page_id=24). Alternatively, you can use the following command to start Matlab below `$ matlab -softwareopengl`.
     
     ```bash
     $ salloc -N 1 --exclusive -p ser-par-10g-4
@@ -71,7 +73,7 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
     You should receive the following response with a unique identifier 
 
     ```bash
-    salloc: Granted job allocation 13782380
+    salloc: Granted job allocation 14018745
     ```
 
 3) In order to connect to the node that you just allocated, you need to know which of the `ser-par-10g-4` nodes was allocated to you. You can use the SLURM `squeue` command to see the node that is running and allocated to you.
@@ -95,7 +97,7 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
 
 4) Now, connect to the node via SSH. Use the `-X` flag to enable the [X11 window system](https://en.wikipedia.org/wiki/X_Window_System) that allows us to see the standard Matlab GUI. In this case, the node name was `compute-0-208`, but yours will likely be different. 
 
-    If you are Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. ![XMing tray icon][https://www.cs.iastate.edu/files/page/images/x-forwarding-win08.png] Otherwise, Matlab will open in command line only mode within the SSH window. 
+    If you are Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. ![XMing tray icon](https://www.cs.iastate.edu/files/page/images/x-forwarding-win08.png) Otherwise, Matlab will open in command line only mode within the SSH window. 
     
     ```bash
     $ ssh -X [NODE NAME FROM ABOVE]
@@ -118,11 +120,11 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
     [[YOUR USERNAME]@[NODE NAME] ~]$
     ```
     
-    You will find this command prefix help for determining what machine you are currently typing command into.
+    You will find this command prefix helps to determine what machine you are currently typing commands into.
 
 ## 3. Running MATLAB in Parallel using `parfor`
 
-### 3a. Configure Matlab to use the cluster 
+### 3a. Configure Matlab to use the correct nodes on the cluster.
 
 1) Run Matlab. Make sure that you have XMing running on your local machine. You should see the XMing icon in your system tray.
 
@@ -142,7 +144,7 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
         
     * Check `ClusterInfo.getQueueName` is empty.
 
-    * Then set it to the partition you wish MDCS to launch jobs
+    * Then set it to the partition you wish Matlab to launch jobs on.
 
         ```matlab
         > ClusterInfo.setQueueName(‘[NAME OF SLURM PARTITION]’)
@@ -155,9 +157,36 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
         ```
         
     * Check `ClusterInfo.getQueueName` is empty.
+    
+3) Verify this Cluster configuration using the default `local` profile.
+
+    ```matlab
+    > parpool('local')
+    ```
+    
+    Should return the following
+    
+    ```
+    Starting parallel pool (parpool) using the 'local' profile ... connected to 12 workers.
+
+    ans = 
+
+     Pool with properties: 
+
+                Connected: true
+               NumWorkers: 12
+                  Cluster: local
+            AttachedFiles: {}
+              IdleTimeout: 30 minute(s) (30 minutes remaining)
+              SpmdEnabled: true
+    ```
+    
+    Assuming you are using the X11 MATLAB GUI, you can further validate the local cluster profile [following these directions](https://www.mathworks.com/help/distcomp/discover-clusters-and-use-cluster-profiles.html#brrzq8d-1).
 
 ### 3b. Create and run a SLURM job. 
-The Matlab [`parfor`](https://www.mathworks.com/help/distcomp/parfor.html) makes it simple to parallize Matlab computations that would otherwise occur in serial with the `for` command. However, Matlab alone cannot distribute the work, SLURM must once again be used to call the Matlab function to parallelize. 
+Instead of creating an interactive node every time you want to run a Matlab script/function, you can queue a SLURM job to run the script when the necessary resources become available on the cluster. 
+
+The Matlab [`parfor`](https://www.mathworks.com/help/distcomp/parfor.html) command makes it simple to parallelize Matlab computations that would otherwise occur in serial with the `for` command. 
 
 1) Download the files for this test by running the following Git command.
 
@@ -184,6 +213,7 @@ The Matlab [`parfor`](https://www.mathworks.com/help/distcomp/parfor.html) makes
     * `pctdemo_setup_blackjack`-- Performs the initialization for the Parallel Computing  Toolbox Blackjack examples.
     * `pctdemo_task_blackjack` -- Simulates blackjack.
     * `pDemoFigure` -- Returns a handle to a figure that can be used for the Parallel Computing Toolbox demos.
+    * `README.md` -- The source file for the readme file you are currently reading.
 
 2) Submit the SLURM job with the following command:
 
@@ -213,7 +243,7 @@ The Matlab [`parfor`](https://www.mathworks.com/help/distcomp/parfor.html) makes
     * [`tail`](http://man7.org/linux/man-pages/man1/tail.1.html) - output the last part of files
     * `-f out/sbatch.out` output appended data as the file `out/sbatch.out` grows
     
-    **Note:** this output file will not be created until the SLURM job changes from PENDING to RUNNING.
+    **NOTE** -- this output file will not be created until the SLURM job changes from PENDING to RUNNING.
     
 4) View the output files via the [`nano`](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/) or [`vi`](https://www.howtogeek.com/102468/a-beginners-guide-to-editing-text-files-with-vi/) commands, or over SSH with NppFTP
 
