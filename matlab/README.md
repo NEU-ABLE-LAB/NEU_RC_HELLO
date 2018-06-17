@@ -173,7 +173,7 @@ The Matlab [`parfor`](https://www.mathworks.com/help/distcomp/parfor.html) makes
     * Changes the directory to `/home/[YOUR USERNAME]`
     * Creates the directory `devel/` (if it does not already exists) where you should keep all of your code development projects, and then the `NEU_RC_TEST/` directory for this Git repository.
     * Changes the directory to `devel/NEU_RC_TEST/`
-    * Clones the Git repository at `github.com:NEU-ABLE-LAB/NEU_RC_TEST` to the `NEU_RC_TEST/` directory.
+    * Clones the Git repository at `github.com:NEU-ABLE-LAB/NEU_RC_HELLO` to the `NEU_RC_TEST/` directory.
     * Changes the directory to `matlab/` containing the Matlab RC test demo.
     
     This should create the following files in the `matlab/` directory.
