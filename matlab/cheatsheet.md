@@ -25,14 +25,18 @@ TODO
   
 Internet access
 ---------------
-Only the login nodes (i.e. discovery2 and discovery4) have access to the Internet. For your programs to have access to the Internet, you must setup a proxy.
+Compute nodes on discovery do not have access to the Internet by default, but you can route web requests through login nodes as follows.
 
-### Proxies for interactive nodes
+### Web Access on Interactive nodes
 On the login node:
 ```bash
 $ ssh -R 2200:localhost:22 $USER@[NODE_NAME] ssh -D 10800 -p 2200 localhost
 ```
 * `NODE_NAME` is the node name assigned by `salloc` returned by the `squeue` command
+* `-R 2200:localhost:22` sets up a forward from `remote:2200` to `localhost:22`.
+* `ssh -p 2200 localhost` runs ssh on remote, to connect to `remote:2200`, and so back to `localhost:22` (tunneled over the first ssh connection).
+* `-D 10800` tunnels SOCKS from `remote:10800`, over the connection from remote back to `localhost`.
+
 HT:[ServerFault](https://serverfault.com/questions/624685/making-proxy-available-on-remote-server-through-ssh-tunneling)
 
 Now SSH'd into the interactive node:
@@ -45,6 +49,6 @@ Any program that uses the default environment proxy settings will have access to
 curl http://google.com
 ```
 
-### Proxies for SLURM Scripts
+### Web Access in SLURM Scripts
 TODO
   
