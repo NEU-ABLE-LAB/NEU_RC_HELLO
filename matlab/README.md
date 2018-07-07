@@ -140,6 +140,8 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
             
     Matlab should now be running through X11 on your computer.
     
+    *NOTE*: Only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or [contact research computing](https://www.northeastern.edu/rc/?page_id=24). Alternatively, you can use the following command to start Matlab below `$ matlab -softwareopengl`.
+    
 2) [Configure Matlab](https://www.northeastern.edu/rc/?page_id=18#matjobs) to run in parallel mode using the `ser-par-10g-4` partitioned nodes on the cluster. 
 
     * Configure MATLAB to run parallel jobs on your cluster by calling configCluster.

@@ -1,7 +1,7 @@
 Cheat sheet for using Matlab on the Discovery Cluster
 ====================================================
 
-See the [MATLAB Hello World on Discovery example](readme.md) for more complete details and usage examples.
+See the [MATLAB Hello World on Discovery example](README.md) for more complete details and usage examples.
 
 Interactive nodes
 -----------------
@@ -11,13 +11,13 @@ Interactive nodes
 $ salloc -N 1 --exclusive -p [PARTITION_NAME]
 $ squeue -l -u $USER
 $ ssh -X [NODE_NAME]
-$ matlab
+$ matlab -softwareopengl
 ```
 where:
 * `PARTITION_NAME` is one of the [discovery partitions](https://www.northeastern.edu/rc/?page_id=14)
   - `ser-par-10g-4` recommended for general purpose use
 * `NODE_NAME` is the node name assigned by `salloc` returned by the `squeue` command
-  
+* Only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or contact research computing. Alternatively, you can use the following command to start `Matlab below $ matlab -softwareopengl`
 
 SLURM Scripts
 -------------
