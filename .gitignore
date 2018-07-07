@@ -1,2 +1,5 @@
 # Output folders
 */out/*
+
+# Autosave files
+*.bak
