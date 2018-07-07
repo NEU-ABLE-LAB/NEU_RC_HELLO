@@ -3,10 +3,21 @@ Cheat sheet for using Matlab on the Discovery Cluster
 
 See the [MATLAB Hello World on Discovery example](README.md) for more complete details and usage examples.
 
-Interactive nodes
------------------
+- [Cheat sheet for using Matlab on the Discovery Cluster](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
+- [Interactive nodes](#interactive-nodes)
+  * [Starting an interactive node](#starting-an-interactive-node)
+- [SLURM Scripts](#slurm-scripts)
+- [Internet access](#internet-access)
+  * [Web Access on Interactive nodes](#web-access-on-interactive-nodes)
+  * [Web Access in SLURM Scripts](#web-access-in-slurm-scripts)
 
-### Starting an interactive node
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+Interactive nodes
+=================
+
+Starting an interactive node
+----------------------------
 ```bash
 $ salloc -N 1 --exclusive -p [PARTITION_NAME]
 $ squeue -l -u $USER
@@ -20,14 +31,15 @@ where:
 * Only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or contact research computing. Alternatively, you can use the following command to start `Matlab below $ matlab -softwareopengl`
 
 SLURM Scripts
--------------
+=============
 TODO
   
 Internet access
----------------
+===============
 Compute nodes on discovery do not have access to the Internet by default, but you can route web requests through login nodes as follows.
 
-### Web Access on Interactive nodes
+Web Access on Interactive nodes
+-------------------------------
 On the login node:
 ```bash
 $ ssh -R 2200:localhost:22 $USER@[NODE_NAME] ssh -D 10800 -p 2200 localhost
@@ -51,6 +63,7 @@ Any program that uses the default environment proxy settings will have access to
 curl http://google.com
 ```
 
-### Web Access in SLURM Scripts
+Web Access in SLURM Scripts
+---------------------------
 TODO
   
