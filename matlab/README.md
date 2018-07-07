@@ -1,5 +1,4 @@
-MATLAB Hello World on Discovery
-===============================
+# MATLAB Hello World on Discovery
 This is a MATLAB `parfor` demo running on the NEU Discovery Cluster. This example benchmarks the `parfor` construct by repeatedly playing the card game of blackjack, also known as 21. We use `parfor` to play the card game multiple times in parallel, varying the number of MATLAB® workers, but always using the same number of players and hands. This example is based on the [Simple Benchmarking of PARFOR Using Blackjack](https://www.mathworks.com/help/distcomp/examples/simple-benchmarking-of-parfor-using-blackjack.html) from the MATLAB [Parallel Computing Toolbox Examples](https://www.mathworks.com/help/distcomp/examples.html).
 
 ***NOTE*** -- At this time (July 2018) MATLAB can only be run in parallel on a single node, i.e. across the cores of that node. This is due to a misconfigured license for the `discovery_local_r2016a` configuration. Note also that MATLAB Parallel Computing Toolbox only runs across physical cores, *not* logical cores.
@@ -15,8 +14,7 @@ This is a MATLAB `parfor` demo running on the NEU Discovery Cluster. This exampl
 
 A summary of these commands is available in the [Matlab Discovery Cheat sheet](cheatsheet.md)
 
-1. Using MATLAB for the first time on Discovery
------------------------------------------------
+## 1. Using MATLAB for the first time on Discovery
 Before you begin: become familiar with high-performance computing at Northeastern on the Discover cluster by reading through the [Research Computing website](https://www.northeastern.edu/rc/), particularly the [Overview](https://www.northeastern.edu/rc/?page_id=27) and [Guidelines](https://www.northeastern.edu/rc/?page_id=2).
 
 1) Follow the directions to [get an account on Discovery Cluster](https://www.northeastern.edu/rc/?page_id=20)
@@ -53,8 +51,7 @@ Before you begin: become familiar with high-performance computing at Northeaster
         module load matlab_mdcs_2016a
         ```
 				
-2. Using an Interactive MATLAB node
------------------------------------
+## 2. Using an Interactive MATLAB node
 Create an interactive node for Matlab. 
 The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we cannot run Matlab on the *log-in nodes* (i.e. discovery2 and discovery4). So, we need to use SLURM  to create a job. The easiest way to do this is to create an [*interactive job*](https://www.northeastern.edu/rc/?page_id=18#intjobs). 
 
@@ -131,8 +128,7 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
     
     You will find this command prefix helps to determine what machine you are currently typing commands into.
 
-3. Running MATLAB in Parallel using `parfor`
---------------------------------------------
+## 3. Running MATLAB in Parallel using `parfor`
 
 ### 3a. Configure Matlab to use the correct nodes on the cluster.
 
