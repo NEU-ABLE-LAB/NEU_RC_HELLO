@@ -32,6 +32,8 @@ On the login node:
 ```bash
 $ ssh -R 2200:localhost:22 $USER@[NODE_NAME] ssh -D 10800 -p 2200 localhost
 ```
+You may get the response `Pseudo-terminal will not be allocated because stdin is not a terminal.`. In which case, keep that window open, and create another SSH standard session into discovery then into the the interactive node as normal.
+
 * `NODE_NAME` is the node name assigned by `salloc` returned by the `squeue` command
 * `-R 2200:localhost:22` sets up a forward from `remote:2200` to `localhost:22`.
 * `ssh -p 2200 localhost` runs ssh on remote, to connect to `remote:2200`, and so back to `localhost:22` (tunneled over the first ssh connection).
