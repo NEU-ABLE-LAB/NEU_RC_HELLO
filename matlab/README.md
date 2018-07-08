@@ -106,12 +106,13 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
     | ![XMing tray icon](https://www.cs.iastate.edu/files/page/images/x-forwarding-win08.png) |
     
     ```bash
-    $ ssh -X [NODE NAME FROM ABOVE]
+    $ ssh -X -C [NODE NAME FROM ABOVE]
     ```
     
     Explanation of command:
     * [`ssh`](https://www.ssh.com/ssh/command/#sec-SSH-Command-in-Linux) - The ssh command provides a secure encrypted connection between two hosts over an insecure network. This connection can also be used for terminal access, file transfers, and for tunneling other applications. Graphical X11 applications can also be run securely over SSH from a remote location.
     * `-X` - Enables X11 forwarding.
+    * `-C` - Enables compression to improve performance on 'slow' networks.
     * `[NODE NAME FROM ABOVE]` - The host name to connect to, e.g. `compute-0-208`
     
     Note how the command line prompt changed from 
@@ -132,10 +133,18 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
 
 ### 3a. Configure Matlab to use the correct nodes on the cluster.
 
+0) Using the Matlab GUI over X11 can be slow. To help speed it up, run the following shell command \[[H/T](https://www.mathworks.com/matlabcentral/answers/107239-why-does-r2013b-keyboard-freeze-when-toggling-x11-forwarded-windows)\]:
+
+    ```bash
+    $ echo "-Dsun.java2d.pmoffscreen=false" > ~/java.opts
+    ```
+    
+    You should only need to run this command once, ever.
+
 1) Run Matlab. Make sure that you have XMing running on your local machine. You should see the XMing icon in your system tray.
 
     ```bash
-    $ matlab
+    $ matlab -softwareopengl
     ```
             
     Matlab should now be running through X11 on your computer.
