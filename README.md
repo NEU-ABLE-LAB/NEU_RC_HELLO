@@ -40,7 +40,7 @@ Starting an interactive node
 ```bash
 $ salloc -N 1 --exclusive -p [PARTITION_NAME]
 $ squeue -l -u $USER
-$ ssh -X [NODE_NAME]
+$ ssh -X -C [NODE_NAME]
 ```
 where:
 * `PARTITION_NAME` is one of the [discovery partitions](https://www.northeastern.edu/rc/?page_id=14)
