@@ -1,16 +1,36 @@
-# NEU_RC_TEST
+NEU_RC_TEST
+===========
 A collection of demos for the NEU Discovery Cluster. 
 
 Before you begin: become familiar with high-performance computing at Northeastern on the Discover cluster by reading through the [Research Computing website](https://www.northeastern.edu/rc/), particularly the [Overview](https://www.northeastern.edu/rc/?page_id=27) and [Guidelines](https://www.northeastern.edu/rc/?page_id=2).
+
+- [NEU_RC_TEST](#neu-rc-test)
+- [[MATLAB Discovery Cluster Hello World](matlab/README.md)](#-matlab-discovery-cluster-hello-world--matlab-readmemd-)
+- [Python Discovery Cluster Hello World](#python-discovery-cluster-hello-world)
+- [Interactive nodes](#interactive-nodes)
+  * [Starting an interactive node](#starting-an-interactive-node)
+- [Git(hub) on Discovery](#git-hub--on-discovery)
+  * [SSH](#ssh)
+  * [HTTPS](#https)
+- [Internet access](#internet-access)
+  * [Web Access on Interactive nodes](#web-access-on-interactive-nodes)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+[Go to top](#neu-rc-test)
 
 [MATLAB Discovery Cluster Hello World](matlab/README.md)
 ========================================================
 
  * [Matlab Discovery Cheat sheet](matlab/cheatsheet.md)
  
+[Go to top](#neu-rc-test)
+
 Python Discovery Cluster Hello World
 ====================================
 ***TODO***
+
+[Go to top](#neu-rc-test)
 
 Interactive nodes
 =================
@@ -27,6 +47,8 @@ where:
   - `ser-par-10g-4` recommended for general purpose use
 * `NODE_NAME` is the node name assigned by `salloc` returned by the `squeue` command
 
+[Go to top](#neu-rc-test)
+
 Git(hub) on Discovery
 =====================
 Git is only available on the login nodes of the Discovery cluster.
@@ -38,6 +60,8 @@ TODO
 HTTPS
 -----
 The Discovery cluster does not currently fully support accessing repositories over HTTPS, namely it does not yet support credential keyrings.
+
+[Go to top](#neu-rc-test)
 
 Internet access
 ===============
