@@ -133,7 +133,7 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
 
 ### 3a. Configure Matlab to use the correct nodes on the cluster.
 
-0) Using the Matlab GUI over X11 can be slow. To help speed it up, run the following shell command \[[H/T](https://www.mathworks.com/matlabcentral/answers/107239-why-does-r2013b-keyboard-freeze-when-toggling-x11-forwarded-windows)\]:
+1) Using the Matlab GUI over X11 can be slow. To help speed it up, run the following shell command \[[H/T](https://www.mathworks.com/matlabcentral/answers/107239-why-does-r2013b-keyboard-freeze-when-toggling-x11-forwarded-windows)\]:
 
     ```bash
     $ echo "-Dsun.java2d.pmoffscreen=false" > ~/java.opts
@@ -141,7 +141,7 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
     
     You should only need to run this command once, ever.
 
-1) Run Matlab. Make sure that you have XMing running on your local machine. You should see the XMing icon in your system tray.
+2) Run Matlab. Make sure that you have XMing running on your local machine. You should see the XMing icon in your system tray.
 
     ```bash
     $ matlab -softwareopengl
@@ -150,30 +150,6 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
     Matlab should now be running through X11 on your computer.
     
     *NOTE*: Only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or [contact research computing](https://www.northeastern.edu/rc/?page_id=24). Alternatively, you can use the following command to start Matlab below `$ matlab -softwareopengl`.
-    
-2) [Configure Matlab](https://www.northeastern.edu/rc/?page_id=18#matjobs) to run in parallel mode using the `ser-par-10g-4` partitioned nodes on the cluster. 
-
-    * Configure MATLAB to run parallel jobs on your cluster by calling configCluster.
-
-        ```matlab
-        > configCluster
-        ```
-        
-    * Check `ClusterInfo.getQueueName` is empty.
-
-    * Then set it to the partition you wish Matlab to launch jobs on.
-
-        ```matlab
-        > ClusterInfo.setQueueName(‘[NAME OF SLURM PARTITION]’)
-        ```
-        
-        For example
-        
-        ```matlab
-        > ClusterInfo.setQueueName(‘ser-par-10g-4’)
-        ```
-        
-    * Check `ClusterInfo.getQueueName` is empty.
     
 3) Verify this Cluster configuration using the default `local` profile.
 
