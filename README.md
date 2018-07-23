@@ -55,6 +55,11 @@ Git(hub) on Discovery
 To use a new(er) version of Git, add the following to your `.bashrc` file
 
 ```bash
+# Git Module
+#   Without this, only Git 1.7.1 is available only
+#   the login nodes, and no Git is available on the
+#   compute nodes. With this module, this version of
+#   Git is available throughout.
 module load git-2.9.5
 ```
 
