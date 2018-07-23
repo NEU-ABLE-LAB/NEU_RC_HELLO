@@ -39,14 +39,27 @@ Interactive nodes
 Starting an interactive node
 ----------------------------
 ```bash
-$ salloc -N 1 --exclusive -p [PARTITION_NAME]
+$ salloc -N 1 --exclusive -p <PARTITION_NAME>
 $ squeue -l -u $USER
-$ ssh -X -C [NODE_NAME]
+$ ssh -X -C <NODE_NAME>
 ```
 where:
-* `PARTITION_NAME` is one of the [discovery partitions](https://www.northeastern.edu/rc/?page_id=14)
+* `<PARTITION_NAME>` is one of the [discovery partitions](https://www.northeastern.edu/rc/?page_id=14)
   - `ser-par-10g-4` recommended for general purpose use
-* `NODE_NAME` is the node name assigned by `salloc` returned by the `squeue` command
+* `<NODE_NAME>` is the node name assigned by `salloc` returned by the `squeue` command
+
+[Go to top](#neu-rc-test)
+
+Choosing a partition
+--------------------
+
+Some partitions may be used more often than others, making it difficult to get a node assigned for your job. Use the following [`sinfo`](https://slurm.schedmd.com/sinfo.html) commands to determine the status of nodes on the discovery cluster.
+
+* `sinfo` -- Status of all nodes
+* `sinfo -p <partition>` -- Status of all nodes on the partition `<partition>`. E.g. `sinfo -p ser-par-10g-4`
+* `sinfo -t idle` -- List all idle nodes. 
+
+Some partitions may be listed by the `sinfo` command which are not available for you. See [Discovery Partitions](https://www.northeastern.edu/rc/?page_id=14) for full details on installed and available partitions. 
 
 [Go to top](#neu-rc-test)
 
