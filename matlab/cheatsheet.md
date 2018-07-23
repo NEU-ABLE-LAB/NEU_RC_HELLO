@@ -28,6 +28,16 @@ Common Flags
 
 [Go to top](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
 
+Parallelization
+---------------
+Verify this Cluster configuration using the default local profile.
+
+```matlab
+> parpool('local')
+```
+
+From here, you should be able to run your Matlab code that utilizes [parfor](https://www.mathworks.com/help/distcomp/parfor.html), parallelized across all the cores of the compute node. **NOTE** Discovery does not support parallelization across multiple nodes at this time.
+
 SLURM Scripts
 =============
 TODO
