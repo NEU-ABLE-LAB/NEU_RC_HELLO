@@ -5,8 +5,8 @@ A collection of demos for the NEU Discovery Cluster.
 Before you begin: become familiar with high-performance computing at Northeastern on the Discover cluster by reading through the [Research Computing website](https://www.northeastern.edu/rc/), particularly the [Overview](https://www.northeastern.edu/rc/?page_id=27) and [Guidelines](https://www.northeastern.edu/rc/?page_id=2).
 
 - [NEU_RC_TEST](#neu-rc-test)
-- [[MATLAB Discovery Cluster Hello World](matlab/README.md)](#-matlab-discovery-cluster-hello-world--matlab-readmemd-)
-- [Python Discovery Cluster Hello World](#python-discovery-cluster-hello-world)
+- [MATLAB Discovery Cluster](#matlab-discovery-cluster)
+- [Python Discovery Cluster](#python-discovery-cluster)
 - [Interactive nodes](#interactive-nodes)
   * [Starting an interactive node](#starting-an-interactive-node)
 - [Git(hub) on Discovery](#git-hub--on-discovery)
@@ -19,15 +19,16 @@ Before you begin: become familiar with high-performance computing at Northeaster
 
 [Go to top](#neu-rc-test)
 
-[MATLAB Discovery Cluster Hello World](matlab/README.md)
-========================================================
+MATLAB Discovery Cluster
+========================
 
+ * [Hello World example](matlab/README.md)
  * [Matlab Discovery Cheat sheet](matlab/cheatsheet.md)
  
 [Go to top](#neu-rc-test)
 
-Python Discovery Cluster Hello World
-====================================
+Python Discovery Cluster
+========================
 ***TODO***
 
 [Go to top](#neu-rc-test)
