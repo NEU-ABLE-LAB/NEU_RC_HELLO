@@ -9,9 +9,8 @@ Before you begin: become familiar with high-performance computing at Northeaster
 - [Python Discovery Cluster](#python-discovery-cluster)
 - [Interactive nodes](#interactive-nodes)
   * [Starting an interactive node](#starting-an-interactive-node)
+  * [Choosing a partition](#choosing-a-partition)
 - [Git(hub) on Discovery](#git-hub--on-discovery)
-  * [SSH](#ssh)
-  * [HTTPS](#https)
 - [Internet access](#internet-access)
   * [Web Access on Interactive nodes](#web-access-on-interactive-nodes)
 
