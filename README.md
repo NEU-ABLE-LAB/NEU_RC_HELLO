@@ -52,7 +52,19 @@ where:
 
 Git(hub) on Discovery
 =====================
-Git is only available on the login nodes of the Discovery cluster.
+To use a new(er) version of Git, add the following to your `.bashrc` file
+
+```bash
+module load git-2.9.5
+```
+
+Then log out and log back in. (Alternitively, run this module load command directly from the command line for it to work immediately in the current session, but not persist.)
+
+To test the Git version, type the following
+
+```bash
+git --version
+```
 
 SSH
 ---
