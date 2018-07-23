@@ -71,13 +71,7 @@ To test the Git version, type the following
 git --version
 ```
 
-SSH
----
-TODO
-
-HTTPS
------
-The Discovery cluster does not currently fully support accessing repositories over HTTPS, namely it does not yet support credential keyrings.
+**NOTE** Git on Discovery does not support HTTPS connections. If you must you HTTPS to access your repo, clone the repo on your local machine, and use SFTP to copy it to the cluster.
 
 [Go to top](#neu-rc-test)
 
