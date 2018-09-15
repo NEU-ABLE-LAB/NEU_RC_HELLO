@@ -24,9 +24,19 @@ $ matlab
 Common Flags
 ------------
 * `-softwareopengl` - Only some [Discovery partitions](https://its.northeastern.edu/researchcomputing/partitions/) have the libraries for hardware accelerated Matlab GUI. If you receive an error about `error: /usr/lib64/libGL` use the `-softwareopengl` to start Matlab or select another partition.
-* `-nodesktop` - Use this if you do not want to use the Matlab GUI and just want to run the Matlab command line in the shell.
+* `-nodisplay` - Use this if you do not want to use the Matlab GUI and just want to run the Matlab command line in the shell.
 
 [Go to top](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
+
+Parallelization
+---------------
+Verify this Cluster configuration using the default local profile.
+
+```matlab
+> parpool('local')
+```
+
+From here, you should be able to run your Matlab code that utilizes [parfor](https://www.mathworks.com/help/distcomp/parfor.html), parallelized across all the cores of the compute node. **NOTE** Discovery does not support parallelization across multiple nodes at this time.
 
 SLURM Scripts
 =============

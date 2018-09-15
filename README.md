@@ -10,16 +10,16 @@ Before you begin: become familiar with high-performance computing at Northeaster
 - [NEU_RC_TEST](#neu-rc-test)
 - [Interactive nodes](#interactive-nodes)
   * [Starting an interactive node](#starting-an-interactive-node)
+  * [Choosing a partition](#choosing-a-partition)
 - [Git(hub) on Discovery](#git-hub--on-discovery)
   * [SSH](#ssh)
   * [HTTPS](#https)
 - [Internet access](#internet-access)
   * [Web Access on Interactive nodes](#web-access-on-interactive-nodes)
-- [[MATLAB Discovery Cluster Hello World](matlab/README.md)](#-matlab-discovery-cluster-hello-world--matlab-readmemd-)
-- [Python Discovery Cluster Hello World](#python-discovery-cluster-hello-world)
+- [MATLAB Discovery Cluster](#matlab-discovery-cluster)
+- [Python Discovery Cluster](#python-discovery-cluster)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 [Go to top](#neu-rc-test)
 
@@ -66,12 +66,25 @@ Starting an interactive node
 
 [Go to top](#neu-rc-test)
 
+Choosing a partition
+--------------------
+
+Some partitions may be used more often than others, making it difficult to get a node assigned for your job. Use the following [`sinfo`](https://slurm.schedmd.com/sinfo.html) commands to determine the status of nodes on the discovery cluster.
+
+* `sinfo` -- Status of all nodes
+* `sinfo -p <partition>` -- Status of all nodes on the partition `<partition>`. E.g. `sinfo -p ser-par-10g-4`
+* `sinfo -t idle` -- List all idle nodes. 
+
+Some partitions may be listed by the `sinfo` command which are not available for you. See [Discovery Partitions](https://www.northeastern.edu/rc/?page_id=14) for full details on installed and available partitions. 
+
+[Go to top](#neu-rc-test)
+
 Git(hub) on Discovery
 =====================
 Git is available on all Discovery notes. However, since only the login nodes have access to the Internet, thus you can only push/pull to a remote repo on the login notes.
 
 SSH
----
+----
 TODO
 
 HTTPS
@@ -109,15 +122,17 @@ Any program that uses the default environment proxy settings will have access to
 curl http://google.com
 
 ```
-[MATLAB Discovery Cluster Hello World](matlab/README.md)
-========================================================
 
+MATLAB Discovery Cluster
+========================
+
+ * [Hello World example](matlab/README.md)
  * [Matlab Discovery Cheat sheet](matlab/cheatsheet.md)
  
 [Go to top](#neu-rc-test)
 
-Python Discovery Cluster Hello World
-====================================
+Python Discovery Cluster
+========================
 ***TODO***
 
 [Go to top](#neu-rc-test)
