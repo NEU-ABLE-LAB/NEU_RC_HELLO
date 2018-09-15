@@ -23,7 +23,7 @@ $ matlab
 
 Common Flags
 ------------
-* `-softwareopengl` - Only some [Discovery partitions](https://www.northeastern.edu/rc/?page_id=14) have the libraries for hardware accelerated Matlab GUI. If you receive an error about `error: /usr/lib64/libGL` use the `-softwareopengl` to start Matlab or select another partition.
+* `-softwareopengl` - Only some [Discovery partitions](https://its.northeastern.edu/researchcomputing/partitions/) have the libraries for hardware accelerated Matlab GUI. If you receive an error about `error: /usr/lib64/libGL` use the `-softwareopengl` to start Matlab or select another partition.
 * `-nodesktop` - Use this if you do not want to use the Matlab GUI and just want to run the Matlab command line in the shell.
 
 [Go to top](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)

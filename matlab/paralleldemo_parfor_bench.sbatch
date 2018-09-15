@@ -24,7 +24,7 @@
 run_dir="/home/$USER/devel/NEU_RC_TEST/matlab/"
 
 # The directory to read and write data
-# Large input and output data should be stored in /gss_gpfs_scratch/ since each user has a 30 GByte quota (hard limit) and 20 GByte soft limit on the `/home/` directory. /gss_gpfs_scratch/ does not have quotas enabled. Consistently using over ~1TB of scratch space for two or more weeks at a time is not permitted. Since this space is limited to 1.1PB and we have more than 500 users please make sure you “rsync” or “sFTP” your data elsewhere. See https://www.northeastern.edu/rc/?page_id=2
+# Large input and output data should be stored in /gss_gpfs_scratch/ since each user has a 30 GByte quota (hard limit) and 20 GByte soft limit on the `/home/` directory. /gss_gpfs_scratch/ does not have quotas enabled. Consistently using over ~1TB of scratch space for two or more weeks at a time is not permitted. Since this space is limited to 1.1PB and we have more than 500 users please make sure you “rsync” or “sFTP” your data elsewhere. See https://its.northeastern.edu/researchcomputing/storage/
 data_dir="/gss_gpfs_scratch/$USER/paralleldemo_parfor_bench/`date +%Y%m%d_%H%M%S`/"
 
 # The directory to write output logs

@@ -15,12 +15,11 @@ This is a MATLAB `parfor` demo running on the NEU Discovery Cluster. This exampl
 A summary of these commands is available in the [Matlab Discovery Cheat sheet](cheatsheet.md)
 
 ## 1. Using MATLAB for the first time on Discovery
-Before you begin: become familiar with high-performance computing at Northeastern on the Discover cluster by reading through the [Research Computing website](https://www.northeastern.edu/rc/), particularly the [Overview](https://www.northeastern.edu/rc/?page_id=27) and [Guidelines](https://www.northeastern.edu/rc/?page_id=2).
+Before you begin: become familiar with high-performance computing at Northeastern on the Discover cluster by reading through the [Research Computing website](https://its.northeastern.edu/researchcomputing/), particularly the [Overview](https://its.northeastern.edu/researchcomputing/overview/) and [Guidelines](https://its.northeastern.edu/researchcomputing/usage-guidelines/).
 
-1) Follow the directions to [get an account on Discovery Cluster](https://www.northeastern.edu/rc/?page_id=20)
-    * Please CC your professor on all emails to RC.
+1) Request an account through [ServiceNow](https://northeastern.service-now.com/research?id=sc_cat_item&sys_id=0ae24596db535fc075892f17d496199c).
 
-2) Follow the directions to [connect to Discovery Cluster](https://www.northeastern.edu/rc/?page_id=75)
+2) Follow the directions to [connect to Discovery Cluster](https://its.northeastern.edu/researchcomputing/connecting/)
 
     * If you are new to all of this and using Windows, I recommend using the following: 
         * [Putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html) Download the full Putty installer.
@@ -30,104 +29,26 @@ Before you begin: become familiar with high-performance computing at Northeaster
 
         Configure Putty, XMing, and Notepad++ FTP with profiles to easily connect to Discovery.
         
-        TODO -- separate this out into its own page and provide instructions for using SSH keys.
+        TODO -- separate this out into its own page and provide instructions for using SSH keys. Also explain X11.
 
 3) Getting Matlab to run on Discovery
 
-    * Discovery is not just one computer, but a cluster of many computers. A program called SLURM is used to distribute the compute jobs to the appropriate computer(s) on the cluster. Before we can use Matlab, we need to configure SLURM with the appropriate "modules". Open the file `/home/[YOUR USERNAME]/.bashrc` with [NppFTP](https://sourceforge.net/projects/nppftp/) or via an SSH command window with [`nano`](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/) or [`vi`](https://www.howtogeek.com/102468/a-beginners-guide-to-editing-text-files-with-vi/) and append the following. Explanation of this use of the `.bashrc` file can be found on the [RC software page](https://www.northeastern.edu/rc/?page_id=16) and the [Matlab job description page](https://www.northeastern.edu/rc/?page_id=18#matjobs).
+    * Discovery is not just one computer, but a cluster of many computers. A program called SLURM is used to distribute the compute jobs to the appropriate computer(s) on the cluster. Before we can use Matlab, we need to configure SLURM with the appropriate "modules". Open the file `/home/[YOUR USERNAME]/.bashrc` with [NppFTP](https://sourceforge.net/projects/nppftp/) or via an SSH command window with [`nano`](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/) or [`vi`](https://www.howtogeek.com/102468/a-beginners-guide-to-editing-text-files-with-vi/) and append the following. Explanation of this use of the `.bashrc` file can be found on the [RC software page](https://its.northeastern.edu/researchcomputing/software/).
 
         ```bash
         # User specific aliases and functions
         #####################################
         
         # Prerequisites for Matlab
-        module load gnu-4.4-compilers
-        module load fftw-3.3.3
-        module load platform-mpi
-        module load oracle_java_1.7u40
-        module load perl-5.20.0
-        module load slurm-14.11.8
+        None required
         
-        module load matlab_mdcs_2016a
+        module load matlab/R2018a
         ```
+        
+    After changing your `.bashrc` file, log out and log back in.
 				
 ## 2. Using an Interactive MATLAB node
 Create an interactive node for Matlab. 
-The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we cannot run Matlab on the *log-in nodes* (i.e. discovery2 and discovery4). So, we need to use SLURM  to create a job. The easiest way to do this is to create an [*interactive job*](https://www.northeastern.edu/rc/?page_id=18#intjobs). 
-
-1) Use Putty to SSH into a Discovery login node.
-
-2) Use the SLURM `salloc` command to allocate one `ser-par-10g-4` compute node for exclusive use. 
-
-    *NOTE* -- We could choose any of the [partitions on the discovery cluster](https://www.northeastern.edu/rc/?page_id=14), but only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or [contact research computing](https://www.northeastern.edu/rc/?page_id=24). Alternatively, you can use the following command to start Matlab below `$ matlab -softwareopengl`.
-    
-    ```bash
-    $ salloc -N 1 --exclusive -p ser-par-10g-4
-    ```
-        
-    Explanation of command:
-    * [`salloc`](https://slurm.schedmd.com/salloc.html) - Obtain a Slurm job allocation (a set of nodes), execute a command, and then release the allocation when the command is finished.
-    * `-N 1` - Request at least 1 node.
-    * `--exclusive` - The job allocation can not share nodes with other running jobs.
-    * `-p ser-par-10g-4` - Select one of the nodes on the `ser-par-10g-4` partition. See [list of partitions](https://www.northeastern.edu/rc/?page_id=14).
-    
-    
-    You should receive the following response with a unique identifier 
-
-    ```bash
-    salloc: Granted job allocation 14018745
-    ```
-
-3) In order to connect to the node that you just allocated, you need to know which of the `ser-par-10g-4` nodes was allocated to you. You can use the SLURM `squeue` command to see the node that is running and allocated to you.
-
-    ```bash
-    $ squeue -l -u $USER
-    ```
-    
-    Explanation of command:
-    * [`squeue`](https://slurm.schedmd.com/squeue.html) - view information about jobs located in the Slurm scheduling queue.
-    * `-l` - Report more of the available information for the selected jobs or job steps, subject to any constraints specified.
-    * `-u $USER` - Only return the jobs of the current user. Note: `$USER` is a Unix environment variable that returns the current user's username. 
-    
-    You should receive the following response. The JOBID should match the number from the previous step. The `compute-0-208` node was allocated in this case. 
-    
-    ```bash
-    Mon Apr 30 13:30:58 2018
-         JOBID PARTITION     NAME     USER    STATE       TIME TIME_LIMI  NODES NODELIST(REASON)
-      14018745 ser-par-1     bash   mbkane  RUNNING      14:04 1-00:00:00      1 compute-0-208
-    ```
-
-4) Now, connect to the node via SSH. Use the `-X` flag to enable the [X11 window system](https://en.wikipedia.org/wiki/X_Window_System) that allows us to see the standard Matlab GUI. In this case, the node name was `compute-0-208`, but yours will likely be different. 
-
-    If you are Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. Otherwise, Matlab will open in command line only mode within the SSH window. 
-    
-    | XMing Windows tray icon |
-    |:-----------------------:|
-    | ![XMing tray icon](https://www.cs.iastate.edu/files/page/images/x-forwarding-win08.png) |
-    
-    ```bash
-    $ ssh -X -C [NODE NAME FROM ABOVE]
-    ```
-    
-    Explanation of command:
-    * [`ssh`](https://www.ssh.com/ssh/command/#sec-SSH-Command-in-Linux) - The ssh command provides a secure encrypted connection between two hosts over an insecure network. This connection can also be used for terminal access, file transfers, and for tunneling other applications. Graphical X11 applications can also be run securely over SSH from a remote location.
-    * `-X` - Enables X11 forwarding.
-    * `-C` - Enables compression to improve performance on 'slow' networks.
-    * `[NODE NAME FROM ABOVE]` - The host name to connect to, e.g. `compute-0-208`
-    
-    Note how the command line prompt changed from 
-    
-    ```bash
-    [[YOUR USERNAME]@discovery[2 OR 4] ~]$
-    ```
-    
-    to
-    
-    ```bash
-    [[YOUR USERNAME]@[NODE NAME] ~]$
-    ```
-    
-    You will find this command prefix helps to determine what machine you are currently typing commands into.
 
 ## 3. Running MATLAB in Parallel using `parfor`
 
@@ -149,7 +70,7 @@ The [RC Guidelines](https://www.northeastern.edu/rc/?page_id=2) tell us that we 
             
     Matlab should now be running through X11 on your computer.
     
-    *NOTE*: Only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or [contact research computing](https://www.northeastern.edu/rc/?page_id=24). Alternatively, you can use the following command to start Matlab below `$ matlab -softwareopengl`.
+    *NOTE*: Only some partitions have the libraries for Matlab GUI. If you receive an error about `error: /usr/lib64/libGL`, select another partition or [contact research computing](https://its.northeastern.edu/researchcomputing/contact/). Alternatively, you can use the following command to start Matlab below `$ matlab -softwareopengl`.
     
 3) Verify this Cluster configuration using the default `local` profile.
 
