@@ -121,20 +121,17 @@ When using FTP, rsync, filezill, winscp, etc. to  transfer data to/from Discover
 
 Initiating File Transfers (and internet access) *from* Discovery
 --------------------------------------------------------------
-For security reasons, compute nodes on discovery do not have access to the Internet by default, but you can route web requests through login nodes as follows.
+For security reasons, compute nodes on discovery do not have direct access to the Internet. They do however indiectly access the internet through a automatically established proxy connection into the xfer nodes (e.g. `xfer-00.discovery.neu.edu`). 
 
-On the node that you'd like to connect to the internet execute the following command:
+You can confirm the proxy settings were automatically loaded by running the following command that will show the proxy settings (e.g. `http_proxy` and `https_proxy`). 
+
 ```bash
-export http_proxy="xfer-00.discovery.neu.edu:3128"
-export https_proxy=$http_proxy
-export ftp_proxy=$http_proxy
-export rsync_proxy=$http_proxy
+env | grep proxy
 ```
 
-* `export ..._proxy...` -- This sets environment variables with the [proxy settings](https://wiki.archlinux.org/index.php/proxy_settings) so that certain programs (e.g. [wget](https://wiki.archlinux.org/index.php/Wget) and curl) can use the proxy by default. 
-* `xfer-00.discovery.neu.edu:3128` -- This specifies the proxy server, which is hosted on the xfer node as a [Squid proxy](https://en.wikipedia.org/wiki/Squid_(software)).
+*NOTE*: If a proxy service you need is not automatically established (e.g. ftp) you may have to establish the setting yourself.
   
-Any program that uses the default environment proxy settings will have access to the Internet. (NOTE: This will not work for `ping` ). For example, you can test your proxy with the following command:
+Any program that uses the default environment proxy settings will have access to the Internet. (*NOTE*: This will not work for `ping` ). For example, you can test your proxy with the following command:
 ```bash
 curl http://example.com
 ```
