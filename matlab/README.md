@@ -1,7 +1,7 @@
 # MATLAB Hello World on Discovery
 This is a MATLAB `parfor` demo running on the NEU Discovery Cluster. This example benchmarks the `parfor` construct by repeatedly playing the card game of blackjack, also known as 21. We use `parfor` to play the card game multiple times in parallel, varying the number of MATLAB® workers, but always using the same number of players and hands. This example is based on the [Simple Benchmarking of PARFOR Using Blackjack](https://www.mathworks.com/help/distcomp/examples/simple-benchmarking-of-parfor-using-blackjack.html) from the MATLAB [Parallel Computing Toolbox Examples](https://www.mathworks.com/help/distcomp/examples.html).
 
-***NOTE*** -- At this time (July 2018) MATLAB can only be run in parallel on a single node, i.e. across the cores of that node. This is due to a misconfigured license for the `discovery_local_r2016a` configuration. Note also that MATLAB Parallel Computing Toolbox only runs across physical cores, *not* logical cores.
+***NOTE*** -- At this time (July 2018) MATLAB can only be run in parallel on a single node, i.e. across the physical (*not* logical) cores of that node. If you need to run jobs on multiple nodes, you may submit a request to ITS for Matlab MDCS license.
 
 - [MATLAB Hello World on Discovery](#matlab-hello-world-on-discovery)
   * [1. Using MATLAB for the first time on Discovery](#1-using-matlab-for-the-first-time-on-discovery)
