@@ -7,7 +7,11 @@ Before you begin: become familiar with high-performance computing at Northeaster
 * [Overview](https://its.northeastern.edu/researchcomputing/overview/)
 * [Guidelines](https://its.northeastern.edu/researchcomputing/usage-guidelines/).
 
+TOC
+====
+
 - [NEU_RC_HELLO](#neu-rc-hello)
+- [TOC](#toc)
 - [Preparing to use Discovery](#preparing-to-use-discovery)
 - [Interactive nodes](#interactive-nodes)
   * [Starting an interactive node](#starting-an-interactive-node)
@@ -16,14 +20,13 @@ Before you begin: become familiar with high-performance computing at Northeaster
   * [HTTPS](#https)
   * [SSH](#ssh)
 - [Internet access and File Transfer](#internet-access-and-file-transfer)
-  * [File Transfer](#file-transfer)
+  * [Initiating File Transfers *to* Discovery](#initiating-file-transfers--to--discovery)
+  * [Initiating File Transfers (and internet access) *from* Discovery](#initiating-file-transfers--and-internet-access---from--discovery)
     + [rClone](#rclone)
-  * [Internet Access from a SLURM job (including interactive nodes)](#internet-access-from-a-slurm-job--including-interactive-nodes-)
 - [MATLAB Discovery Cluster](#matlab-discovery-cluster)
 - [Python Discovery Cluster](#python-discovery-cluster)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 [Go to top](#neu-rc-hello)
 
