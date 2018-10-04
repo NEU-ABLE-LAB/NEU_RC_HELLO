@@ -9,7 +9,11 @@ TOC
 ====
 
 - [Cheat sheet for using Matlab on the Discovery Cluster](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
+- [TOC](#toc)
 - [Starting Matlab](#starting-matlab)
+  * [Common Flags](#common-flags)
+- [Parallelization](#parallelization)
+  * [Create a Parallel Pool](#create-a-parallel-pool)
 - [SLURM Scripts](#slurm-scripts)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -59,6 +63,7 @@ where `<NumWorkers>` is the integrer number of parallel workers Matlab should us
 
   * To increase this limit, restart the SLURM job (e.g. with `srun` or `sbatch`) with a larger value of `-n` upto the maximum available on the partition used.
 
+[Go to top](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
 
 SLURM Scripts
 =============
