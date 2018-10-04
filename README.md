@@ -110,6 +110,14 @@ SSH
 ----
 **TODO** - Explain setting up SSH keys. Reinforce that SSH keys should be password protected.
 
+Editor
+------
+The default editor Git on discovery is [vi](https://en.wikipedia.org/wiki/Vi). You may wish to change this to the much easier to use editor [Nano](https://en.wikipedia.org/wiki/GNU_nano) with the following command [H/T](https://www.safaribooksonline.com/library/view/gitlab-cookbook/9781783986842/apas07.html?orpq):
+
+```bash
+git config --global core.editor "nano"
+```
+
 [Go to top](#neu-rc-hello)
 
 Internet access and File Transfer
