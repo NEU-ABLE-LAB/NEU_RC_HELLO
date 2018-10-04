@@ -30,7 +30,13 @@ $ matlab
 
 Common Flags
 ------------
-* `-nodisplay` - Use this if you do not want to use the Matlab GUI and just want to run the Matlab command line in the shell.
+* `-nodisplay` - Use this if you do not want to use the Matlab GUI (through X11) and just want to run the Matlab command line in the shell.
+
+Matlab GUI
+----------
+*X11* is used to send the Matlab GUI to your local computer. Make sure an X11 server is running on your computer (e.g. [XMing](https://sourceforge.net/projects/xming/)), you didn't specify the `-nodisplay` flag above, and your created the interactive node with the `--X11` flag. 
+
+*Keyboard shortcuts* - If you find that <kbd>CTRL</kbd>+<kbd>C</kbd> or other shortcuts don't work, check the Matlab key bindings as described [here](https://www.mathworks.com/matlabcentral/answers/103161-why-am-i-unable-to-use-copy-ctrl-c-and-paste-ctrl-v-keyboard-short-cuts-in-the-text-editing-mode#answer_112506).
 
 [Go to top](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
 
