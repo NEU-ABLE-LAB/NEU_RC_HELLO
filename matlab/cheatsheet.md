@@ -23,13 +23,14 @@ $ matlab
 
 Common Flags
 ------------
-* `-softwareopengl` - Only some [Discovery partitions](https://its.northeastern.edu/researchcomputing/partitions/) have the libraries for hardware accelerated Matlab GUI. If you receive an error about `error: /usr/lib64/libGL` use the `-softwareopengl` to start Matlab or select another partition.
 * `-nodisplay` - Use this if you do not want to use the Matlab GUI and just want to run the Matlab command line in the shell.
 
 [Go to top](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
 
 Parallelization
 ---------------
+NOTE -- At this time (July 2018) MATLAB can only be run in parallel on a single node, i.e. across the physical (not logical) cores of that node. If you need to run jobs on multiple nodes, you may submit a request to ITS for Matlab MDCS license.
+
 Verify this Cluster configuration using the default local profile.
 
 ```matlab
