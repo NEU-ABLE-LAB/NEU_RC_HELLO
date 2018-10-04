@@ -25,6 +25,7 @@ TOC
     + [rClone](#rclone)
 - [MATLAB Discovery Cluster](#matlab-discovery-cluster)
 - [Python Discovery Cluster](#python-discovery-cluster)
+- [Other Resources](#other-resources)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -181,5 +182,14 @@ MATLAB Discovery Cluster
 Python Discovery Cluster
 ========================
 ***TODO***
+
+[Go to top](#neu-rc-hello)
+
+Other Resources
+===============
+
+* [Official SLURM documentation](https://slurm.schedmd.com/)
+* [Official SLURM cheat sheet](https://slurm.schedmd.com/pdfs/summary.pdf)
+* [Convenient SLURM Commands (Harvard)](https://www.rc.fas.harvard.edu/resources/documentation/convenient-slurm-commands/)
 
 [Go to top](#neu-rc-hello)
