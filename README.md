@@ -7,7 +7,11 @@ Before you begin: become familiar with high-performance computing at Northeaster
 * [Overview](https://its.northeastern.edu/researchcomputing/overview/)
 * [Guidelines](https://its.northeastern.edu/researchcomputing/usage-guidelines/).
 
+TOC
+====
+
 - [NEU_RC_HELLO](#neu-rc-hello)
+- [TOC](#toc)
 - [Preparing to use Discovery](#preparing-to-use-discovery)
 - [Interactive nodes](#interactive-nodes)
   * [Starting an interactive node](#starting-an-interactive-node)
@@ -16,14 +20,14 @@ Before you begin: become familiar with high-performance computing at Northeaster
   * [HTTPS](#https)
   * [SSH](#ssh)
 - [Internet access and File Transfer](#internet-access-and-file-transfer)
-  * [File Transfer](#file-transfer)
+  * [Initiating File Transfers *to* Discovery](#initiating-file-transfers--to--discovery)
+  * [Initiating File Transfers (and internet access) *from* Discovery](#initiating-file-transfers--and-internet-access---from--discovery)
     + [rClone](#rclone)
-  * [Internet Access from a SLURM job (including interactive nodes)](#internet-access-from-a-slurm-job--including-interactive-nodes-)
 - [MATLAB Discovery Cluster](#matlab-discovery-cluster)
 - [Python Discovery Cluster](#python-discovery-cluster)
+- [Other Resources](#other-resources)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 [Go to top](#neu-rc-hello)
 
@@ -49,12 +53,13 @@ Starting an interactive node
     | ![XMing tray icon](https://www.cs.iastate.edu/files/page/images/x-forwarding-win08.png) |
     
     ```bash
-    $ srun -n 2 -p general --x11 --pty /bin/bash
+    $ srun -n 2 --mem=4gb -p general --x11 --pty /bin/bash
     ```
         
     Explanation of command:
     * [`srun`](https://slurm.schedmd.com/srun.html) - Run a slurm job.
-    * `-n 2` - Specify that two tasks will be run, so specify at least 2 CPUs. 
+    * `-n 2` - Specify that two tasks will be run, so specify at least 2 CPU cores. 
+    * `--mem=4gb` - Specify that a minimum of 4GB of memory should be allocated to the job.
     * `-p general` - Request nodes from the `general` partition.
     * `--x11` - Enable graphical interfaces to be forwared through the SSH connection using the [X Window System](https://en.wikipedia.org/wiki/X_Window_System).
     * `--pty /bin/bash` After provisioning the job, start a pseudo terminal and then open the standard [Bash Unix shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). 
@@ -75,6 +80,24 @@ Starting an interactive node
     
         Where `mbkane` will be your username, and `c0114` will be node that has been provisioned for your job.
         
+    Information about your jobs can be obtained from `squeue`:
+    
+    ```bash
+    squeue -l -u $USER -o "%.18i %.9P %.2t %.10M %.6D %.4C %.10m %.6z %N"
+    ```
+    
+    which returns the following information:
+    
+    * `JOBID` - Job or job step id. In the case of job arrays, the job ID format will be of the form "<base_job_id>_<index>". By default, the job array index field size will be limited to 64 bytes. Use the environment variable SLURM_BITSTR_LEN to specify larger field sizes. (Valid for jobs and job steps) In the case of heterogeneous job allocations, the job ID format will be of the form "#+#" where the first number is the "heterogeneous job leader" and the second number the zero origin offset for each component of the job.
+    * `PARTITION` - Partition of the job or job step. (Valid for jobs and job steps)
+    * `ST` - Job state in compact form. See the JOB STATE CODES section below for a list of possible states. (Valid for jobs only)
+    * `TIME` - Time used by the job or job step in days-hours:minutes:seconds. The days and hours are printed only as needed. For job steps this field shows the elapsed time since execution began and thus will be inaccurate for job steps which have been suspended. Clock skew between nodes in the cluster will cause the time to be inaccurate. If the time is obviously wrong (e.g. negative), it displays as "INVALID". (Valid for jobs and job steps)
+    * `NODES` - Number of nodes allocated to the job or the minimum number of nodes required by a pending job. The actual number of nodes allocated to a pending job may exceed this number if the job specified a node range count (e.g. minimum and maximum node counts) or the job specifies a processor count instead of a node count and the cluster contains nodes with varying processor counts. As a job is completing this number will reflect the current number of nodes allocated. (Valid for jobs only)
+    * `CPUS` - Number of CPUs (processors) requested by the job or allocated to it if already running. As a job is completing this number will reflect the current number of CPUs allocated. (Valid for jobs only)
+    * `MIN_MEMORY` - Minimum size of memory (in MB) requested by the job. (Valid for jobs only)
+    * `S:C:T` - Number of requested sockets, cores, and threads (S:C:T) per node for the job. When (S:C:T) has not been set, "*" is displayed. (Valid for jobs only)
+    * `NODELIST` - List of nodes allocated to the job or job step. In the case of a COMPLETING job, the list of nodes will comprise only those nodes that have not yet been returned to service. (Valid for jobs and job steps)
+    
     You can get information about the node(s) you're using with the following command
     
     ```bash
@@ -129,20 +152,17 @@ When using FTP, rsync, filezill, winscp, etc. to  transfer data to/from Discover
 
 Initiating File Transfers (and internet access) *from* Discovery
 --------------------------------------------------------------
-For security reasons, compute nodes on discovery do not have access to the Internet by default, but you can route web requests through login nodes as follows.
+For security reasons, compute nodes on discovery do not have direct access to the Internet. They do however indiectly access the internet through a automatically established proxy connection into the xfer nodes (e.g. `xfer-00.discovery.neu.edu`). 
 
-On the node that you'd like to connect to the internet execute the following command:
+You can confirm the proxy settings were automatically loaded by running the following command that will show the proxy settings (e.g. `http_proxy` and `https_proxy`). 
+
 ```bash
-export http_proxy="xfer-00.discovery.neu.edu:3128"
-export https_proxy=$http_proxy
-export ftp_proxy=$http_proxy
-export rsync_proxy=$http_proxy
+env | grep proxy
 ```
 
-* `export ..._proxy...` -- This sets environment variables with the [proxy settings](https://wiki.archlinux.org/index.php/proxy_settings) so that certain programs (e.g. [wget](https://wiki.archlinux.org/index.php/Wget) and curl) can use the proxy by default. 
-* `xfer-00.discovery.neu.edu:3128` -- This specifies the proxy server, which is hosted on the xfer node as a [Squid proxy](https://en.wikipedia.org/wiki/Squid_(software)).
+*NOTE*: If a proxy service you need is not automatically established (e.g. ftp) you may have to establish the setting yourself.
   
-Any program that uses the default environment proxy settings will have access to the Internet. (NOTE: This will not work for `ping` ). For example, you can test your proxy with the following command:
+Any program that uses the default environment proxy settings will have access to the Internet. (*NOTE*: This will not work for `ping` ). For example, you can test your proxy with the following command:
 ```bash
 curl http://example.com
 ```
@@ -170,5 +190,14 @@ MATLAB Discovery Cluster
 Python Discovery Cluster
 ========================
 ***TODO***
+
+[Go to top](#neu-rc-hello)
+
+Other Resources
+===============
+
+* [Official SLURM documentation](https://slurm.schedmd.com/)
+* [Official SLURM cheat sheet](https://slurm.schedmd.com/pdfs/summary.pdf)
+* [Convenient SLURM Commands (Harvard)](https://www.rc.fas.harvard.edu/resources/documentation/convenient-slurm-commands/)
 
 [Go to top](#neu-rc-hello)
