@@ -12,8 +12,11 @@ TOC
 - [TOC](#toc)
 - [Starting Matlab](#starting-matlab)
   * [Common Flags](#common-flags)
+  * [Matlab GUI](#matlab-gui)
 - [Parallelization](#parallelization)
   * [Create a Parallel Pool](#create-a-parallel-pool)
+    + [Timeout Period](#timeout-period)
+  * [Delete a Current Pool](#delete-a-current-pool)
 - [SLURM Scripts](#slurm-scripts)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
@@ -48,10 +51,11 @@ Create a Parallel Pool
 ----------------------
 
 ```matlab
-parpool(<NumWorkers>)
+p = parpool(<NumWorkers>);
 ```
 
 where `<NumWorkers>` is the integrer number of parallel workers Matlab should use with the following constraints
+
 * `<NumWorkers>` ≤ The value returned by the Matlab command `getfield(parcluster(parallel.defaultClusterProfile),'NumWorkers')` - I.e., the number maximum number of workers allowed by the current Matlab cluster configuration, in the case the default cluster configuration.
     
     * To increase this limit, up to the `<numcpus>` limit below, run the following Matlab command [H/T](https://www.mathworks.com/help/distcomp/saveprofile.html):
@@ -68,6 +72,37 @@ where `<NumWorkers>` is the integrer number of parallel workers Matlab should us
 * `<NumWorkers>` ≤ The value returned by the shell command `squeue -O numcpus -j <JobID>`, where `<JobID>` is the ID of the SLURM job running the Matlab instance of interest. This Assumes SLURM only provisioned one node, i.e. `squeue -O numnodes -j <JobID>` is 1. 
 
   * To increase this limit, restart the SLURM job (e.g. with `srun` or `sbatch`) with a larger value of `-n` upto the maximum available on the partition used.
+
+### Timeout Period
+
+Once you create a Parallel Pool, it will automatically close after a timeout period if you do not use it. 
+
+Make this timeout period longer when you create the pool
+
+```matlab
+% This will set the idle timeout to 2 hours 
+parpool('IdleTimeout', 120)
+```
+
+Or after the pool is make, assuming `p` already exists
+
+```matlab
+% Create pool
+p = parpool
+
+% Do some things, and then realize you need a longer timeout.
+
+% This will set the idle timeout to 2 hours 
+p.IdleTimeout = 120
+```
+
+Delete a Current Pool
+---------------------
+You may want to delete a pool to restart it or change settings
+
+```matlab
+delete(gcp('nocreate'))
+```
 
 [Go to top](#cheat-sheet-for-using-matlab-on-the-discovery-cluster)
 
