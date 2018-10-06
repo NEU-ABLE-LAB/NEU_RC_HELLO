@@ -109,3 +109,8 @@ delete(gcp('nocreate'))
 SLURM Scripts
 =============
 TODO
+
+Other Resources
+===============
+
+* [Matlab on SLURM (University of Chicago)](https://rcc.uchicago.edu/docs/software/environments/matlab/)
