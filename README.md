@@ -44,9 +44,44 @@ Starting an interactive node
 
 1) SSH into a Discovery login node. (For example, using Putty.)
 
+2) Use the tmux [`tmux`](https://research.computing.yale.edu/support/hpc/user-guide/tmux) command to initialize a terminal.
+	It's is a great way to save an interactive session between connections you make to the clusters. You can reconnect to the session from a workstation in your lab or from your laptop from home!
+	If you are disconnected or detached from this session, anything you were doing will still be there waiting when you reattach.
+	It also allows you to create, toggle between and manipulate panes and windows in your session.Panes are subdivisions in the curent window, where each runs an independent terminal. 
+	Especially at first, you probably won't need more than one pane at a time. Multiple windows can be created and run off-screen.
+	
+	**Attaching/Detaching**
+	To begin, type:
+	```bash
+	tmux new -s newsession
+	```
+	To signal `tmux` to use the following stroke, use the shortcut: `Ctrl + b` +`following shortcut`
+	For example: 
+	To detach from the terminal, use: `Ctrl + b`+`d`
+	To reattach to the session "newsession" mentioned above, use the following code:
+	```bash
+	tmux attach -t newsession
+	```
+	
+	**Windows/Panes Toggle**
+	After submitting an interactive job using `srun` (Covered in the next step), you can split the window by using the shortcut in the compute node: `Ctrl + b`+`%`
+	After splitting, ssh into the compute node you were working on and then type/run top to montior CPU and memory utilization
+	For example:
+	```bash
+	[kunind.k@login-01 ~]$ tmux new -s newsession
+	[kunind.k@login-01 ~]$ srun -n 2 --mem=4gb -p general --x11 --pty /bin/bash
+	[kunind.k@c0146 ~]$  
+	```
+	Using `Ctrl+b` + `%` to split the current window
+	In the new window:
+	```bash
+	[kunind.k@login-01 ~]$ ssh c0146
+	[kunind.k@c0146 ~]$ top
+	```
+
 2) Use the SLURM [`srun`](https://slurm.schedmd.com/srun.html) command to allocate an interactive SLUR job. 
     
-    If you are Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. Otherwise, software that uses a graphical interface may not open properly (e.g. Matlab). 
+    If you are using Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. Otherwise, software that uses a graphical interface may not open properly (e.g. Matlab). 
     
     | XMing Windows tray icon |
     |:-----------------------:|
