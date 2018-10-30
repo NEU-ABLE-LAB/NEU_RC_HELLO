@@ -85,7 +85,7 @@ Starting an interactive node
 	[kunind.k@c0146 ~]$ top
 	```
 
-2) Use the SLURM [`srun`](https://slurm.schedmd.com/srun.html) command to allocate an interactive SLUR job. 
+3) Use the SLURM [`srun`](https://slurm.schedmd.com/srun.html) command to allocate an interactive SLUR job. 
     
     If you are using Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. Otherwise, software that uses a graphical interface may not open properly (e.g. Matlab). 
     
@@ -145,7 +145,7 @@ Starting an interactive node
     scontrol show node <node name>
     ```
         
-3)  Now any commands that you execute in this window will execute on the machine core(s) in the cluster allocated by SLURM.
+4)  Now any commands that you execute in this window will execute on the machine core(s) in the cluster allocated by SLURM.
 
 [Go to top](#neu-rc-hello)
 
