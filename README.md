@@ -44,13 +44,13 @@ Starting an interactive node
 
 1) SSH into a Discovery login node. (For example, using Putty.)
 
-2) Use the tmux [`tmux`](https://research.computing.yale.edu/support/hpc/user-guide/tmux) command to initialize a terminal.
+2) Use the [`tmux`](https://research.computing.yale.edu/support/hpc/user-guide/tmux) command to initialize a terminal.
 	
 	It's is a great way to save an interactive session between connections you make to the clusters. You can reconnect to the session from a workstation in your lab or from your laptop from home!
 	If you are disconnected or detached from this session, anything you were doing will still be there waiting when you reattach.
 	
 	
-	It also allows you to create, toggle between and manipulate panes and windows in your session.Panes are subdivisions in the curent window, where each runs an independent terminal. 
+	It also allows you to create, toggle between and manipulate panes and windows in your session. Panes are subdivisions in the curent window, where each runs an independent terminal. 
 	Especially at first, you probably won't need more than one pane at a time. Multiple windows can be created and run off-screen.
 	
 	**Attaching/Detaching**
