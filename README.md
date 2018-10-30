@@ -53,6 +53,10 @@ Starting an interactive node
 	It also allows you to create, toggle between and manipulate panes and windows in your session. Panes are subdivisions in the curent window, where each runs an independent terminal. 
 	Especially at first, you probably won't need more than one pane at a time. Multiple windows can be created and run off-screen.
 	
+	**Don't Forget**
+	- RUN `tmux` ON THE LOGIN NODE, NOT ON COMPUTE NODES
+	- `tmux` will not preserve programs running through X11 if the SSH connection fails
+	
 	**Attaching/Detaching**
 	
 	To begin, type:
@@ -84,6 +88,8 @@ Starting an interactive node
 	[kunind.k@login-01 ~]$ ssh c0146
 	[kunind.k@c0146 ~]$ top
 	```
+	
+	To switch back and forth use the shortcut: `Cntrl+b`+`o`
 
 3) Use the SLURM [`srun`](https://slurm.schedmd.com/srun.html) command to allocate an interactive SLUR job. 
     
