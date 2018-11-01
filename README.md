@@ -19,6 +19,7 @@ TOC
 - [Git(hub) on Discovery](#git-hub--on-discovery)
   * [HTTPS](#https)
   * [SSH](#ssh)
+  * [Editor](#editor)
 - [Internet access and File Transfer](#internet-access-and-file-transfer)
   * [Initiating File Transfers *to* Discovery](#initiating-file-transfers--to--discovery)
   * [Initiating File Transfers (and internet access) *from* Discovery](#initiating-file-transfers--and-internet-access---from--discovery)
