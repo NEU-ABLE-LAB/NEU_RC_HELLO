@@ -28,6 +28,7 @@ TOC
 - [Python Discovery Cluster](#python-discovery-cluster)
 - [Other Resources](#other-resources)
 
+
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 [Go to top](#neu-rc-hello)
@@ -247,5 +248,6 @@ Other Resources
 * [Official SLURM documentation](https://slurm.schedmd.com/)
 * [Official SLURM cheat sheet](https://slurm.schedmd.com/pdfs/summary.pdf)
 * [Convenient SLURM Commands (Harvard)](https://www.rc.fas.harvard.edu/resources/documentation/convenient-slurm-commands/)
+* [Tmux cheat sheet](https://drive.google.com/file/d/14b5SlNzdrj8wIHD1dWixIZ6Ku5gJ5-nU/view?usp=sharing)
 
 [Go to top](#neu-rc-hello)
