@@ -26,10 +26,11 @@ TOC
     + [rClone](#rclone)
 - [MATLAB Discovery Cluster](#matlab-discovery-cluster)
 - [Python Discovery Cluster](#python-discovery-cluster)
+- [Tmux](#tmux)
 - [Other Resources](#other-resources)
 
-
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 [Go to top](#neu-rc-hello)
 
@@ -49,6 +50,7 @@ Starting an interactive node
 2) Use the [`tmux`](https://research.computing.yale.edu/support/hpc/user-guide/tmux) command to initialize a terminal.
 	
 	It's is a great way to save an interactive session between connections you make to the clusters. You can reconnect to the 		session from a workstation in your lab or from your laptop from home!
+	For more information Tmux, click [here](#tmux)
 	
 	**Don't Forget**
 	- RUN `tmux` ON THE LOGIN NODE, NOT ON COMPUTE NODES
