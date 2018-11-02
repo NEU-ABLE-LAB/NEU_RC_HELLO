@@ -290,7 +290,7 @@ Here's the [Cheat sheet](#other-resources) for the shortcuts used in Tmux.
 
 As a terminal multiplexer, there are other alternatives like screen and on comparison, following Pros and Cons have been highlighted:
 
-| feature | tmux | screen |
+| Feature | Tmux | GNU-Screen |
 |---------|------|--------|
 | Good default choice of "prefix" command character | ✗ Ctrl-B (move cursor left) | ✗ Ctrl-A (move to start of line) |
 | Vertical/Horizontal split into panes | [PREFIX] " and [PREFIX] % | [PREFIX] S and [PREFIX] | |
