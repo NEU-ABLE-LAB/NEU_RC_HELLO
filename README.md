@@ -45,112 +45,136 @@ Interactive nodes are used for small jobs and prototyping code for larger jobs. 
 Starting an interactive node
 ----------------------------
 
-1) SSH into a Discovery login node. (For example, using Putty.)
+### 1) Login to the cluster
 
-2) Use the [`tmux`](https://research.computing.yale.edu/support/hpc/user-guide/tmux) command to initialize a terminal.
-	
-	It's is a great way to save an interactive session between connections you make to the clusters. You can reconnect to the 		session from a workstation in your lab or from your laptop from home!
-	For more information Tmux, click [here](#tmux)
-	
-	**Don't Forget**
-	- RUN `tmux` ON THE LOGIN NODE, NOT ON COMPUTE NODES
-	- `tmux` will not preserve programs running through X11 if the SSH connection fails
-	
-	**Attaching/Detaching**
-	
-	To begin, type:
-	```bash
-	tmux new -s newsession
-	```
-	To signal `tmux` to use the following stroke, use the shortcut: `Ctrl + b` +`following shortcut`
-	For example: 
-	To detach from the terminal, use: `Ctrl + b`+`d`
-	To reattach to the session "newsession" mentioned above, use the following code:
-	```bash
-	tmux attach -t newsession
-	```
-	
-	**Windows/Panes Toggle**
-	
-	
-	After submitting an interactive job using `srun` (Discussed in the next step), you can split the window by using the shortcut in the compute node: `Ctrl + b`+`%`.
-	After splitting the windows, ssh into the compute node you were working on and then type/run top to montior CPU and memory utilization
-	For example:
-	```bash
-	[kunind.k@login-01 ~]$ tmux new -s newsession
-	[kunind.k@login-01 ~]$ srun -n 2 --mem=4gb -p general --x11 --pty /bin/bash
-	[kunind.k@c0146 ~]$  
-	```
-	Using `Ctrl+b` + `%` to split the current window
-	In the new window:
-	```bash
-	[kunind.k@login-01 ~]$ ssh c0146
-	[kunind.k@c0146 ~]$ top
-	```
-	
-	To switch back and forth use the shortcut: `Cntrl+b`+`o`
+SSH into a Discovery login node. (For example, using Putty.)
 
-3) Use the SLURM [`srun`](https://slurm.schedmd.com/srun.html) command to allocate an interactive SLUR job. 
-    
-    If you are using Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. Otherwise, software that uses a graphical interface may not open properly (e.g. Matlab). 
-    
-    | XMing Windows tray icon |
-    |:-----------------------:|
-    | ![XMing tray icon](https://www.cs.iastate.edu/files/page/images/x-forwarding-win08.png) |
-    
-    ```bash
-    $ srun -n 2 --mem=4gb -p general --x11 --pty /bin/bash
-    ```
-        
-    Explanation of command:
-    * [`srun`](https://slurm.schedmd.com/srun.html) - Run a slurm job.
-    * `-n 2` - Specify that two tasks will be run, so specify at least 2 CPU cores. 
-    * `--mem=4gb` - Specify that a minimum of 4GB of memory should be allocated to the job.
-    * `-p general` - Request nodes from the `general` partition.
-    * `--x11` - Enable graphical interfaces to be forwared through the SSH connection using the [X Window System](https://en.wikipedia.org/wiki/X_Window_System).
-    * `--pty /bin/bash` After provisioning the job, start a pseudo terminal and then open the standard [Bash Unix shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). 
-    
-    If you requested resources that aren't immediately available, you'll enter into a queue. 
-    
-    ```bash
-    srun: job 647429 queued and waiting for resources
-    ```
-    
-        Where `647429` will be a unique ID for the job. If you don't want to wait and can provision fewer resources, you can kill the request by typing <kbd>ctrl</kbd>+<kbd>c</kdb>, and try again.
-    
-    Once the requested resources are available, you'll enter into a new shell provisioned for the job. 
-    
-    ```bash
-    [mbkane@c0114 ~]$
-    ```
-    
-        Where `mbkane` will be your username, and `c0114` will be node that has been provisioned for your job.
-        
-    Information about your jobs can be obtained from `squeue`:
-    
-    ```bash
-    squeue -l -u $USER -o "%.18i %.9P %.2t %.10M %.6D %.4C %.10m %.6z %N"
-    ```
-    
-    which returns the following information:
-    
-    * `JOBID` - Job or job step id. In the case of job arrays, the job ID format will be of the form "<base_job_id>_<index>". By default, the job array index field size will be limited to 64 bytes. Use the environment variable SLURM_BITSTR_LEN to specify larger field sizes. (Valid for jobs and job steps) In the case of heterogeneous job allocations, the job ID format will be of the form "#+#" where the first number is the "heterogeneous job leader" and the second number the zero origin offset for each component of the job.
-    * `PARTITION` - Partition of the job or job step. (Valid for jobs and job steps)
-    * `ST` - Job state in compact form. See the JOB STATE CODES section below for a list of possible states. (Valid for jobs only)
-    * `TIME` - Time used by the job or job step in days-hours:minutes:seconds. The days and hours are printed only as needed. For job steps this field shows the elapsed time since execution began and thus will be inaccurate for job steps which have been suspended. Clock skew between nodes in the cluster will cause the time to be inaccurate. If the time is obviously wrong (e.g. negative), it displays as "INVALID". (Valid for jobs and job steps)
-    * `NODES` - Number of nodes allocated to the job or the minimum number of nodes required by a pending job. The actual number of nodes allocated to a pending job may exceed this number if the job specified a node range count (e.g. minimum and maximum node counts) or the job specifies a processor count instead of a node count and the cluster contains nodes with varying processor counts. As a job is completing this number will reflect the current number of nodes allocated. (Valid for jobs only)
-    * `CPUS` - Number of CPUs (processors) requested by the job or allocated to it if already running. As a job is completing this number will reflect the current number of CPUs allocated. (Valid for jobs only)
-    * `MIN_MEMORY` - Minimum size of memory (in MB) requested by the job. (Valid for jobs only)
-    * `S:C:T` - Number of requested sockets, cores, and threads (S:C:T) per node for the job. When (S:C:T) has not been set, "*" is displayed. (Valid for jobs only)
-    * `NODELIST` - List of nodes allocated to the job or job step. In the case of a COMPLETING job, the list of nodes will comprise only those nodes that have not yet been returned to service. (Valid for jobs and job steps)
-    
-    You can get information about the node(s) you're using with the following command
-    
-    ```bash
-    scontrol show node <node name>
-    ```
-        
-4)  Now any commands that you execute in this window will execute on the machine core(s) in the cluster allocated by SLURM.
+### 2) Create a persistent virtual screen
+
+The [`tmux` command is used to in research computing](https://research.computing.yale.edu/support/hpc/user-guide/tmux) to create a buffer between the terminal on the compute node and your computer, protecting your session against loss of connectivity. For more information tmux, click [here](#tmux)
+	
+#### Important
+- RUN `tmux` ON THE LOGIN NODE, *NOT ON COMPUTE NODES*
+- `tmux` will not preserve programs running through X11 if the SSH connection fails
+
+#### 2b) Attaching/Detaching
+
+To begin, type:
+
+```bash
+tmux new -s newsession
+```
+
+Explanation of command:
+	* [`tmux`](https://github.com/tmux/tmux/wiki) - a terminal multiplexer
+	* `new` //todo
+	* `-s newsession` //todo is `newsession` a literal keyword, or just the name of the new session
+
+To signal `tmux` to use the following stroke, use the shortcut: <kbd>Ctrl</kbd> + <kbd>b</kbd> +`following shortcut`
+
+For example: 
+To detach from the terminal, use: <kbd>Ctrl</kbd> + <kbd>b</kbd> + <kbd>d</kbd>
+To reattach to the session "newsession" mentioned above, use the following code:
+
+```bash
+tmux attach -t newsession
+```
+
+#### 2c) Windows/Panes Toggle
+
+After submitting an interactive job using `srun` (Discussed in the next step), you can split the window by using the shortcut in the compute node: <kbd>Ctrl</kbd>+<kbd>b</kbd>+<kbd>%</kbd>.
+
+After splitting the windows, ssh into the compute node you were working on and then type/run top to monitor CPU and memory utilization
+
+For example:
+```bash
+[kunind.k@login-01 ~]$ tmux new -s newsession
+[kunind.k@login-01 ~]$ srun -n 2 --mem=4gb -p general --x11 --pty /bin/bash
+[kunind.k@c0146 ~]$  
+```
+Using <kbd>Ctrl</kbd>+<kbd>b</kbd>+<kbd>%</kbd> to split the current window
+
+In the new window:
+```bash
+[kunind.k@login-01 ~]$ ssh c0146
+[kunind.k@c0146 ~]$ top
+```
+
+To switch back and forth use the shortcut: <kbd>Ctrl</kbd>+<kbd>b</kbd>+<kbd>o</kbd>
+
+### 3) Create an interactive SLURM job.
+
+Use the SLURM [`srun`](https://slurm.schedmd.com/srun.html) command to allocate an interactive SLURM job. 
+
+If you are using Windows, make sure to start XMing before running the following command. You should see the XMing Windows tray icon. Otherwise, software that uses a graphical interface may not open properly (e.g. Matlab). 
+
+| XMing Windows tray icon |
+|:-----------------------:|
+| ![XMing tray icon](https://www.cs.iastate.edu/files/page/images/x-forwarding-win08.png) |
+
+```bash
+$ srun -n 2 --mem=4gb -p general --x11 --pty /bin/bash
+```
+
+Explanation of command:
+* [`srun`](https://slurm.schedmd.com/srun.html) - Run a slurm job.
+* `-n 2` - Specify that two tasks will be run, so specify at least 2 CPU cores. 
+* `--mem=4gb` - Specify that a minimum of 4GB of memory should be allocated to the job.
+* `-p general` - Request nodes from the `general` partition.
+* `--x11` - Enable graphical interfaces to be forwared through the SSH connection using the [X Window System](https://en.wikipedia.org/wiki/X_Window_System).
+* `--pty /bin/bash` After provisioning the job, start a pseudo terminal and then open the standard [Bash Unix shell](https://en.wikipedia.org/wiki/Bash_(Unix_shell)). 
+
+If you requested resources that aren't immediately available, you'll enter into a queue. 
+
+```bash
+srun: job 647429 queued and waiting for resources
+```
+
+Where `647429` will be a unique ID for the job. If you don't want to wait and can provision fewer resources, you can kill the request by typing <kbd>ctrl</kbd>+<kbd>c</kdb>, and try again.
+
+Once the requested resources are available, you'll enter into a new shell provisioned for the job. 
+
+```bash
+[mbkane@c0114 ~]$
+```
+
+Where `mbkane` will be your username, and `c0114` will be node that has been provisioned for your job.
+
+Information about your jobs can be obtained from `squeue`:
+
+```bash
+squeue -l -u $USER -o "%.18i %.9P %.2t %.10M %.6D %.4C %.10m %.6z %N"
+```
+
+which returns the following information:
+
+* `JOBID` - Job or job step id. In the case of job arrays, the job ID format will be of the form "<base_job_id>_<index>". By default, the job array index field size will be limited to 64 bytes. Use the environment variable SLURM_BITSTR_LEN to specify larger field sizes. (Valid for jobs and job steps) In the case of heterogeneous job allocations, the job ID format will be of the form "#+#" where the first number is the "heterogeneous job leader" and the second number the zero origin offset for each component of the job.
+
+* `PARTITION` - Partition of the job or job step. (Valid for jobs and job steps)
+
+* `ST` - Job state in compact form. See the JOB STATE CODES section below for a list of possible states. (Valid for jobs only)
+
+* `TIME` - Time used by the job or job step in days-hours:minutes:seconds. The days and hours are printed only as needed. For job steps this field shows the elapsed time since execution began and thus will be inaccurate for job steps which have been suspended. Clock skew between nodes in the cluster will cause the time to be inaccurate. If the time is obviously wrong (e.g. negative), it displays as "INVALID". (Valid for jobs and job steps)
+
+* `NODES` - Number of nodes allocated to the job or the minimum number of nodes required by a pending job. The actual number of nodes allocated to a pending job may exceed this number if the job specified a node range count (e.g. minimum and maximum node counts) or the job specifies a processor count instead of a node count and the cluster contains nodes with varying processor counts. As a job is completing this number will reflect the current number of nodes allocated. (Valid for jobs only)
+
+* `CPUS` - Number of CPUs (processors) requested by the job or allocated to it if already running. As a job is completing this number will reflect the current number of CPUs allocated. (Valid for jobs only)
+
+* `MIN_MEMORY` - Minimum size of memory (in MB) requested by the job. (Valid for jobs only)
+
+* `S:C:T` - Number of requested sockets, cores, and threads (S:C:T) per node for the job. When (S:C:T) has not been set, "*" is displayed. (Valid for jobs only)
+
+* `NODELIST` - List of nodes allocated to the job or job step. In the case of a COMPLETING job, the list of nodes will comprise only those nodes that have not yet been returned to service. (Valid for jobs and job steps)
+
+You can get information about the node(s) you're using with the following command
+
+```bash
+scontrol show node <node name>
+```
+
+### Run your code
+
+Now any commands that you execute in this window will execute on the machine core(s) in the cluster allocated by SLURM.
 
 [Go to top](#neu-rc-hello)
 
