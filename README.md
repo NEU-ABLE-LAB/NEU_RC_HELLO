@@ -193,7 +193,7 @@ Some partitions may be listed by the `sinfo` command which are not available for
 
 Git(hub) on Discovery
 =====================
-Git software is available on all Discovery notes. However, since only the login nodes have access to the Internet you can only push/pull to a remote repo on the login nodes (e.g. `login.discovery.neu.edu`) and the xfer nodes (e.g. `xfer-00.discovery.neu.edu`).
+Git software is available on all Discovery notes. However, since only the login nodes have access to the Internet, you can only push/pull to a remote repo on the login nodes (e.g. `login.discovery.neu.edu`) and the xfer nodes (e.g. `xfer-00.discovery.neu.edu`).
 
 HTTPS
 -----
