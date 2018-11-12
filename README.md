@@ -199,6 +199,8 @@ HTTPS
 -----
 Github prefers that you use HTTPS when connecting to Github repositories. Git will prompt you for your Github username and password. Your username is simply your Github username. However, for your password, you will have to [create a personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) if your account is protected by [two-factor authentication](https://help.github.com/articles/securing-your-account-with-two-factor-authentication-2fa/) (TFA). (*Which it should be!*). This token should only be used on the discovery cluster and will be used in lieu of your password since the command line doesn't support TFA.
 
+**TODO** `libsecret`
+
 SSH
 ----
 **TODO** - Explain setting up SSH keys. Reinforce that SSH keys should be password protected.
