@@ -15,6 +15,11 @@ TOC
 - [Preparing to use Discovery](#preparing-to-use-discovery)
 - [Interactive nodes](#interactive-nodes)
   * [Starting an interactive node](#starting-an-interactive-node)
+    + [1) Login to the cluster](#1--login-to-the-cluster)
+    + [2) Create a persistent virtual screen](#2--create-a-persistent-virtual-screen)
+      - [Important](#important)
+    + [3) Create an interactive SLURM job.](#3--create-an-interactive-slurm-job)
+    + [Run your code](#run-your-code)
   * [Choosing a partition](#choosing-a-partition)
 - [Git(hub) on Discovery](#git-hub--on-discovery)
   * [HTTPS](#https)
@@ -26,11 +31,9 @@ TOC
     + [rClone](#rclone)
 - [MATLAB Discovery Cluster](#matlab-discovery-cluster)
 - [Python Discovery Cluster](#python-discovery-cluster)
-- [Tmux](#tmux)
 - [Other Resources](#other-resources)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
 
 [Go to top](#neu-rc-hello)
 
@@ -57,50 +60,7 @@ The [`tmux` command is used to in research computing](https://research.computing
 - RUN `tmux` ON THE LOGIN NODE, *NOT ON COMPUTE NODES*
 - `tmux` will not preserve programs running through X11 if the SSH connection fails
 
-#### 2b) Attaching/Detaching
-
-To begin, type:
-
-```bash
-tmux new -s newsession
-```
-
-Explanation of command:
-	* [`tmux`](https://github.com/tmux/tmux/wiki) - a terminal multiplexer
-	* `new` //todo
-	* `-s newsession` //todo is `newsession` a literal keyword, or just the name of the new session
-
-To signal `tmux` to use the following stroke, use the shortcut: <kbd>Ctrl</kbd> + <kbd>b</kbd> +`following shortcut`
-
-For example: 
-To detach from the terminal, use: <kbd>Ctrl</kbd> + <kbd>b</kbd> + <kbd>d</kbd>
-To reattach to the session "newsession" mentioned above, use the following code:
-
-```bash
-tmux attach -t newsession
-```
-
-#### 2c) Windows/Panes Toggle
-
-After submitting an interactive job using `srun` (Discussed in the next step), you can split the window by using the shortcut in the compute node: <kbd>Ctrl</kbd>+<kbd>b</kbd>+<kbd>%</kbd>.
-
-After splitting the windows, ssh into the compute node you were working on and then type/run top to monitor CPU and memory utilization
-
-For example:
-```bash
-[kunind.k@login-01 ~]$ tmux new -s newsession
-[kunind.k@login-01 ~]$ srun -n 2 --mem=4gb -p general --x11 --pty /bin/bash
-[kunind.k@c0146 ~]$  
-```
-Using <kbd>Ctrl</kbd>+<kbd>b</kbd>+<kbd>%</kbd> to split the current window
-
-In the new window:
-```bash
-[kunind.k@login-01 ~]$ ssh c0146
-[kunind.k@c0146 ~]$ top
-```
-
-To switch back and forth use the shortcut: <kbd>Ctrl</kbd>+<kbd>b</kbd>+<kbd>o</kbd>
+For more information refer to [Tmux Wiki](https://github.com/NEU-ABLE-LAB/NEU_RC_HELLO/wiki/Tmux)
 
 ### 3) Create an interactive SLURM job.
 
@@ -264,78 +224,6 @@ Python Discovery Cluster
 ***TODO***
 
 [Go to top](#neu-rc-hello)
-
-Tmux
-====
-The official verbiage describes tmux as a screen multiplexer, similar to GNU Screen. Essentially that means that tmux lets you tile window panes in a command-line environment. This in turn allows you to run, or keep an eye on, multiple programs within one terminal.
-A common use-case for tmux is on a remote server where you have a common layout that you always use, and want a way to quickly jump into and out of. An example would be if you’re connecting through a jump server and have other remote SSH sessions you would like to be connected to simultaneously. Similarly, if you have to hop into Vim, you can use tmux to give you access to your shell or a REPL in the same terminal window for a IDE-like experience.
-
-`tmux` is based around sessions. To start a new session in `tmux`, simply type `tmux new -s sessionname` in your terminal
-To get out, you can type `exit` if you’re in a single pane, and you’ll return from whence you came.
-Note: `exit` is not the only way to get out, and usually not the best way. For that we have `detach`, discussed later.
-
-All commands in tmux require the prefix shortcut, which by default is <kbd>ctrl</kbd>+<kbd>b</kbd>. We will be using the prefix a lot, so best to just commit it to memory. After entering <kbd>ctrl</kbd>+<kbd>b</kbd> you can then run a tmux command, or type <kbd>:</kbd> to get a tmux prompt.
-When entering the prefix, tmux itself will not change in any way. So, if you enter <kbd>ctrl</kbd>+<kbd>b</kbd> and nothing changes, that does not necessarily mean you typed it wrong.
-
-**Attach, Detach & Kill**
-As mentioned, a better way to get out of a session without exiting out of everything is to detach the session. To do this, you first enter the prefix command and then the detach shortcut of <kbd>d</kbd>:
-
-<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>d</kbd>
-
-This will detach the current session and return you to your normal shell.
-
-However, just because you’re out doesn’t mean your session is closed. The detached session is still available, allowing you to pick up where you left off. To check what sessions are active you can run:
-
-`tmux ls`
-
-The tmux sessions will each have a number associated with them on the left-hand side (zero indexed as nature intended). This number can be used to attach and get back into this same session. For example, for session number 3 we would type:
-
-`tmux a -t sessionname`
-
-**Managing Panes**
-In a GUI desktop environment, you have windows. In tmux, you have panes. Like windows in a GUI, these panes allow you to interact with multiple applications and similarly can be opened, closed, resized and moved.
-
-Unlike a standard GUI desktop, these panes are tiled, and are primarily managed by tmux shortcuts as opposed to a mouse (although mouse functionality can be added). To create a new pane you simply split the screen horizontally or vertically.
-
-
-To split a pane horizontally:
-
-<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>"</kbd>
-
-To split pane vertically:
-
-<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>%</kbd>
-
-You can split panes further using the same methodology.
-
-To move from pane to pane, simply use the prefix followed by the arrow key:
-
-<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>[arrow key]</kbd>
-
-Here's the [Cheat sheet](#other-resources) for the shortcuts used in Tmux.
-
-As a terminal multiplexer, there are other alternatives like screen and on comparison, following Pros and Cons have been highlighted:
-
-| Feature | Tmux | GNU-Screen |
-|---------|------|--------|
-| Good default choice of "prefix" command character | ✗ Ctrl-B (move cursor left) | ✗ Ctrl-A (move to start of line) |
-| Vertical/Horizontal split into panes | [PREFIX] " and [PREFIX] % | [PREFIX] S and [PREFIX] | |
-| Initial "Server" memory usage (RSS) | 1632 | 1308 |
-| Initial "Client" memory usage (RSS) | 972 | 992 |
-| Multiple sessions | 1 server process | multiple server processes |
-| Multiple paste buffers | ✓ | ✗ |
-| Search all scrollback buffers at once | ✓ [PREFIX] f | ✗ only can search one with [PREFIX] [ or [PREFIX] Esc followed by / or ? |
-| Can be configured at runtime by executing command lines | ✓ | ✗ |
-| Switch session | ✓ tmux switch -t mysession | ✗ Detach with [PREFIX] d and then reattach with screen -x [PID.TTY.HOSTNAME] |
-| Screens can be moved between sessions or shared between multiple sessions | ✓ | ✗ |
-| Virtual terminal can be larger than currently-attached physical terminal | ✗ | ✓ |
-| zmodem client | ✗ | ✓ |
-| Multiple clients with a different current screen | ✗ this is possible with tmux new-session -t [existing_session_name] to clone the session and attach to the clone, followed by tmux kill-session -t [name_of_clone_session] | ✓ screen -x |
-| Automatic window renaming | ✓ windows are named based on the program running in the currently focused pane | ✗ |
-
-
-[Go to top](#neu-rc-hello)
-
 
 Other Resources
 ===============
