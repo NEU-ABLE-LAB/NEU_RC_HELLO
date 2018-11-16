@@ -274,13 +274,13 @@ A common use-case for tmux is on a remote server where you have a common layout 
 To get out, you can type `exit` if you’re in a single pane, and you’ll return from whence you came.
 Note: `exit` is not the only way to get out, and usually not the best way. For that we have `detach`, discussed later.
 
-All commands in tmux require the prefix shortcut, which by default is `ctrl+b`. We will be using the prefix a lot, so best to just commit it to memory. After entering `ctrl+b` you can then run a tmux command, or type `:` to get a tmux prompt.
-When entering the prefix, tmux itself will not change in any way. So, if you enter `ctrl+b` and nothing changes, that does not necessarily mean you typed it wrong.
+All commands in tmux require the prefix shortcut, which by default is <kbd>ctrl</kbd>+<kbd>b</kbd>. We will be using the prefix a lot, so best to just commit it to memory. After entering <kbd>ctrl</kbd>+<kbd>b</kbd> you can then run a tmux command, or type <kbd>:</kbd> to get a tmux prompt.
+When entering the prefix, tmux itself will not change in any way. So, if you enter <kbd>ctrl</kbd>+<kbd>b</kbd> and nothing changes, that does not necessarily mean you typed it wrong.
 
 **Attach, Detach & Kill**
-As mentioned, a better way to get out of a session without exiting out of everything is to detach the session. To do this, you first enter the prefix command and then the detach shortcut of `d`:
+As mentioned, a better way to get out of a session without exiting out of everything is to detach the session. To do this, you first enter the prefix command and then the detach shortcut of <kbd>d</kbd>:
 
-`ctrl+b d`
+<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>d</kbd>
 
 This will detach the current session and return you to your normal shell.
 
@@ -300,17 +300,17 @@ Unlike a standard GUI desktop, these panes are tiled, and are primarily managed 
 
 To split a pane horizontally:
 
-`ctrl+b "`
+<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>"</kbd>
 
 To split pane vertically:
 
-`ctrl+b %`
+<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>%</kbd>
 
 You can split panes further using the same methodology.
 
 To move from pane to pane, simply use the prefix followed by the arrow key:
 
-`ctrl+b [arrow key]`
+<kbd>ctrl</kbd>+<kbd>b</kbd>+<kbd>[arrow key]</kbd>
 
 Here's the [Cheat sheet](#other-resources) for the shortcuts used in Tmux.
 
